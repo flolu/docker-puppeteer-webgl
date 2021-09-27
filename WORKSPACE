@@ -49,7 +49,7 @@ load("@io_bazel_rules_docker//container:container.bzl", "container_pull")
 
 container_pull(
     name = "ubuntu",
-    digest = "sha256:a1ceb3aac586b6377821ffe6aede35c3646649ee5ac38c3566799cd04745257f",
+    digest = "sha256:3e13fc8953aeb89d29693892e566d8f19fe6d4474a3402507976456289805326",
     registry = "docker.io",
     repository = "drakery/puppeteer-webgl",
 )

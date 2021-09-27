@@ -27,11 +27,12 @@ async function main() {
   await page.waitForNetworkIdle();
 
   await page.waitForSelector("#canvas");
+  await page.waitFor(3000);
 
   const screenshot = await page.screenshot();
   console.log(screenshot);
 
-  // console.log((screenshot as Buffer).toString("base64"));
+  console.log((screenshot as Buffer).toString("base64"));
 }
 
 main();

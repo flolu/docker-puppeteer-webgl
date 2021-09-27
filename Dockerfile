@@ -1,14 +1,18 @@
 FROM ubuntu:20.04
 
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update
+
+# Install X11 deps
+RUN apt-get install -y xorg xserver-xorg xvfb libx11-dev libxext-dev
+
 # Install Node.js
-RUN apt-get update \
-  && apt-get install -y curl
+RUN apt-get install -y curl
 RUN curl --silent --location https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get install --yes nodejs
 RUN apt-get install --yes build-essential
 
 # Install Chrome
-ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
   && apt-get install -y wget gnupg \
   && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
