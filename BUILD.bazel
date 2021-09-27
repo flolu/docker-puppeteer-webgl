@@ -1,0 +1,35 @@
+load("@npm//@bazel/typescript:index.bzl", "ts_config", "ts_project")
+load("@io_bazel_rules_docker//nodejs:image.bzl", "nodejs_image")
+load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
+
+package(default_visibility = ["//visibility:public"])
+
+ts_config(
+    name = "tsconfig",
+    src = "tsconfig.lib.json",
+)
+
+ts_project(
+    name = "lib",
+    srcs = ["index.ts"],
+    declaration = True,
+    tsconfig = "tsconfig",
+    deps = [
+        "@npm//@types/node",
+        "@npm//puppeteer",
+    ],
+)
+
+nodejs_binary(
+    name = "server",
+    data = [
+        "lib",
+    ],
+    entry_point = "index.ts",
+)
+
+nodejs_image(
+    name = "image",
+    base = "@ubuntu//image",
+    binary = "server",
+)
